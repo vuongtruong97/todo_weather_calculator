@@ -1,0 +1,496 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap");
+@import "./grid.scss";
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 62.5%;
+}
+:root,
+:root.light {
+  transition: linear 0.5s;
+
+  --primary-color: hsl(220, 98%, 61%);
+  --primary-background: linear-gradient(
+    hsl(192, 100%, 67%),
+    hsl(280, 87%, 65%)
+  );
+  --font-family: "josefin Sans", sans-serif;
+  --font-size: 1.8rem;
+  //light-theme
+  --bgc-color: hsl(0, 0%, 100%);
+  --btn-color: rgb(92, 92, 92);
+  --text-color: #000;
+  --btn-active-color: rgb(216, 97, 0);
+  --bgc-url: url("./images/sunrise.jpg  ") no-repeat center;
+  --growUp-animation: scale(1.5) translate(-350px, -350px);
+
+  .app {
+    color: #ccc;
+  }
+}
+.app_heading {
+  color: #fff;
+  font-weight: 700;
+  font-size: 4rem;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
+:root.dark {
+  --bgc-color: rgba(255, 255, 255, 0.274);
+  --btn-color: rgb(202, 202, 202);
+  --text-color: #fff;
+  --btn-active-color: rgb(255, 255, 255);
+  --bgc-url: url("./images/235201.jpg") no-repeat center;
+  --growUp-animation: scale(1.5) translate(-100px, -300px);
+}
+$bgc-color: var(--bgc-color);
+$btn-color: var(--btn-color);
+$font-family: var(--font-family);
+$text-color: var(--text-color);
+$btn-active-color: var(--btn-active-color);
+$bgc-url: var(--bgc-url);
+$growUp-animation: var(--growUp-animation);
+.app {
+  margin: 0 auto;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  .appContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+  }
+  &_banner {
+    transition: linear 0.3s;
+    background: $bgc-url;
+    background-size: cover;
+    height: 150vh;
+    width: 200vw;
+    position: fixed;
+    z-index: -1;
+    animation: growUp linear 200s infinite;
+  }
+  &_body {
+    width: 33.3%;
+    margin: 0 auto;
+    .app_header {
+      display: flex;
+      justify-content: space-between;
+      .todo_heading {
+      }
+      .btn_wrap {
+        user-select: none;
+        position: relative;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.8;
+        }
+        .theme_btn {
+          display: none;
+          &:checked + .slider_round {
+            background-color: $bgc-color;
+          }
+
+          &:checked + .slider_round:before {
+            transform: translate(143%, -50%);
+            background-color: #fff;
+          }
+        }
+        .slider_round {
+          box-shadow: 2px 2px 15px -3px #000;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          position: absolute;
+          width: 75px;
+          height: 36px;
+          border-radius: 36px;
+          background: $bgc-color;
+          position: relative;
+          top: 0;
+          right: 0;
+          transition: linear 0.4s;
+          .slider-icon-left,
+          .slider-icon-right {
+            svg {
+              height: 20px;
+            }
+          }
+          .slider-icon-left {
+            fill: #fff;
+            margin-left: 8px;
+          }
+          .slider-icon-right {
+            fill: #26679c;
+            margin-right: 6px;
+          }
+
+          &:before {
+            content: "";
+            display: block;
+            height: 30px;
+            width: 30px;
+            border-radius: 30px;
+            position: absolute;
+            background-color: #26679c;
+            box-shadow: 2px 2px 15px -3px #000;
+            top: 50%;
+            transform: translate(8%, -50%);
+            transition: linear 0.2s;
+          }
+          &:before.active {
+            background-color: #fff;
+          }
+        }
+      }
+
+      .app_theme {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    .app_content {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+      border-radius: 1rem;
+      .app_input {
+        display: flex;
+        align-items: center;
+        padding: 5px 20px 5px;
+        height: 60px;
+        max-width: 100%;
+        border-radius: 1rem;
+        background-color: $bgc-color;
+        .app_input-icon {
+          width: 30px;
+          height: 30px;
+          border-radius: 999px;
+          padding: 5px;
+          margin-right: 10px;
+          fill: $text-color;
+          svg {
+            transform: scale(1.1);
+          }
+        }
+        .addBtn {
+          opacity: 0;
+          pointer-events: none;
+          &.show {
+            display: flex;
+            color: $text-color;
+            opacity: 1;
+            pointer-events: visible;
+          }
+        }
+        .todo_input {
+          border: none;
+          outline: none;
+          font-size: 2.5rem;
+          height: 40px;
+          width: 100%;
+          background-color: transparent;
+          color: $text-color;
+        }
+      }
+      .app_todos {
+        box-shadow: 2px 2px 15px -5px #000;
+        border-radius: 1rem;
+        // overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 30px;
+        background-color: $bgc-color;
+
+        .todo_wrap {
+          .app_todo {
+            background-color: transparent;
+            height: 60px;
+            border-bottom: 1px solid var(--dark-gray-blue);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            align-items: center;
+            font-size: 1.6rem;
+            color: $text-color;
+            border-radius: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            &.drag {
+              opacity: 0.5;
+            }
+            &.over {
+              transform: scale(1.1, 1.1);
+              box-shadow: 2px 2px 25px -5px #000;
+            }
+            .left_todo {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              .check {
+                width: 30px;
+                height: 30px;
+                border-radius: 999px;
+                margin-right: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: 1px solid $btn-color;
+                i {
+                  display: none;
+                }
+                &.checked {
+                  i {
+                    display: block;
+                  }
+                }
+              }
+            }
+            .todo_name {
+              display: flex;
+              justify-content: start;
+              align-items: center;
+              height: 30px;
+              flex: 1;
+              pointer-events: none;
+
+              &.disable {
+                text-decoration: line-through;
+                user-select: none;
+                opacity: 0.4;
+              }
+            }
+            .deleteBtn {
+              i {
+                // width: 20px;
+                // height: 20px;
+                color: $btn-color;
+                transition: linear 0.3s;
+              }
+              &:hover i {
+                color: $btn-active-color;
+                transform: scale(1.3);
+              }
+            }
+          }
+        }
+        .app_controls {
+          height: 60px;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          height: 60px;
+          align-items: center;
+          border-radius: 1rem;
+          padding: 0 20px;
+          .job_count {
+            color: $text-color;
+            font-size: 1.6rem;
+          }
+          .app_sort {
+            display: flex;
+          }
+        }
+      }
+    }
+    .app_footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      h2 {
+        margin-top: 30px;
+        font-size: 1.5rem;
+        text-shadow: 1px 1px 5px #000;
+        letter-spacing: 3px;
+      }
+    }
+  }
+  &_weather {
+    width: calc(100% / 3);
+    overflow: hidden;
+    margin: 10px;
+    color: $text-color;
+    .app_heading {
+      color: #fff;
+      font-weight: 700;
+      font-size: 4rem;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      text-align: center;
+      // margin: 20px 0;
+    }
+    .weather_header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+      font-size: 1.8rem;
+      background-color: $bgc-color;
+      color: $text-color;
+      border-radius: 1rem;
+      .weather_theme {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .city_search,
+        .search_submit {
+          color: $text-color;
+          border: 1px solid $btn-color;
+          padding: 5px 10px;
+          border-radius: 1rem;
+          background-color: transparent;
+          outline: none;
+        }
+        .city_search {
+          width: 70%;
+        }
+        .search_submit {
+          margin-left: 5px;
+          &:hover {
+            border-color: #fff;
+          }
+        }
+      }
+      .weather_location {
+        margin-top: 10px;
+        .address {
+          margin-left: 10px;
+        }
+      }
+    }
+    .weather_body {
+      background-color: $bgc-color;
+      border-radius: 1rem;
+      margin-top: 30px;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      min-height: 300px;
+      .weather_info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        flex: 1;
+        .temp_current {
+          font-size: 12rem;
+        }
+        .weather_current {
+          font-size: 3rem;
+          margin: 0px 0 10px 0;
+        }
+        .weather_pressure2 {
+          text-transform: uppercase;
+          font-size: 2rem;
+        }
+      }
+      .weather_info2 {
+        font-size: 12rem;
+        width: 50%;
+        // width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .weather_forecast2 {
+          font-size: 1.8rem;
+          text-transform: uppercase;
+          text-align: center;
+          line-height: 2.2rem;
+        }
+        .weather_visibility,
+        .weather_windSpeed {
+          font-size: 2rem;
+        }
+        .weather_icon {
+          height: 100px;
+        }
+      }
+    }
+  }
+  &_feature {
+    width: calc(100% / 3);
+    height: 400px;
+  }
+}
+.btn {
+  border: none;
+  background-color: transparent;
+  font-size: 1.5rem;
+  margin: 0 10px;
+  font-family: $font-family;
+  color: $btn-color;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  &.active {
+    color: var(--btn-active-color);
+  }
+  &:hover {
+    color: #000;
+    cursor: pointer;
+  }
+}
+.check_img {
+  width: 30px;
+  height: 30px;
+  background: var(--primary-background);
+  border-radius: 999px;
+}
+@keyframes growUp {
+  0% {
+    transform: scale(1) translate(0px 0px);
+  }
+  50% {
+    transform: $growUp-animation;
+  }
+}
+@media (max-width: 768px) {
+  html {
+    font-size: 50%;
+  }
+  .app_body {
+    max-width: 80%;
+  }
+}
+@media (max-width: 667px) {
+  .app_body {
+    width: 80%;
+    .app_content .app_todos {
+      .todo_wrap {
+        .app_todo {
+          padding: 0 20px;
+          .left_todo .check {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            pointer-events: none;
+          }
+        }
+      }
+      .app_controls {
+        padding: 0 10px;
+      }
+    }
+  }
+  .deleteBtn {
+    padding: 0;
+  }
+  .btn {
+    margin: 0;
+    // padding: 0;
+  }
+}

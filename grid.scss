@@ -1,0 +1,16 @@
+.grid {
+  width: 100%;
+  margin: 0 auto;
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    .col {
+      padding: 0 8px;
+    }
+    .col-4 {
+      max-width: calc(100% / 12) * 4;
+      flex: 0 0 calc(100% / 12) * 4;
+    }
+  }
+}
