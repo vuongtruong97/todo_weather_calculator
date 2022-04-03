@@ -8,6 +8,7 @@
 html {
   font-family: "Josefin Sans", sans-serif;
   font-size: 62.5%;
+  scroll-behavior: smooth;
 }
 :root,
 :root.light {
@@ -21,7 +22,7 @@ html {
   --font-family: "josefin Sans", sans-serif;
   --font-size: 1.8rem;
   //light-theme
-  --bgc-color: hsl(0, 0%, 100%);
+  --bgc-color: hsla(0, 0%, 89%, 0.767);
   --btn-color: rgb(92, 92, 92);
   --text-color: #000;
   --btn-active-color: rgb(216, 97, 0);
@@ -64,6 +65,94 @@ $growUp-animation: var(--growUp-animation);
     justify-content: space-between;
     align-items: center;
     height: 100vh;
+    position: relative;
+    .app_option {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .btn_fullScreen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 4rem;
+        transition: linear 0.2s;
+        margin-left: 2.6rem;
+
+        cursor: pointer;
+        &:hover {
+          color: $text-color;
+          transform: scale(1.2);
+        }
+      }
+      .btn_wrap {
+        user-select: none;
+        position: relative;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.8;
+        }
+        .theme_btn {
+          display: none;
+          &:checked + .slider_round {
+            background-color: $bgc-color;
+          }
+
+          &:checked + .slider_round:before {
+            transform: translate(143%, -50%);
+            background-color: #fff;
+          }
+        }
+        .slider_round {
+          box-shadow: 2px 2px 15px -3px #000;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          position: absolute;
+          width: 75px;
+          height: 36px;
+          border-radius: 36px;
+          background: $bgc-color;
+          position: relative;
+          top: 0;
+          right: 0;
+          transition: linear 0.4s;
+          .slider-icon-left,
+          .slider-icon-right {
+            svg {
+              height: 20px;
+            }
+          }
+          .slider-icon-left {
+            fill: #fff;
+            margin-left: 8px;
+          }
+          .slider-icon-right {
+            fill: #26679c;
+            margin-right: 6px;
+          }
+
+          &:before {
+            content: "";
+            display: block;
+            height: 30px;
+            width: 30px;
+            border-radius: 30px;
+            position: absolute;
+            background-color: #26679c;
+            box-shadow: 2px 2px 15px -3px #000;
+            top: 50%;
+            transform: translate(8%, -50%);
+            transition: linear 0.2s;
+          }
+          &:before.active {
+            background-color: #fff;
+          }
+        }
+      }
+    }
   }
   &_banner {
     transition: linear 0.3s;
@@ -78,6 +167,7 @@ $growUp-animation: var(--growUp-animation);
   &_body {
     width: 33.3%;
     margin: 0 auto;
+    height: 500px;
     .app_header {
       display: flex;
       justify-content: space-between;
@@ -157,7 +247,6 @@ $growUp-animation: var(--growUp-animation);
     .app_content {
       display: flex;
       flex-direction: column;
-      margin-top: 20px;
       border-radius: 1rem;
       .app_input {
         display: flex;
@@ -209,6 +298,14 @@ $growUp-animation: var(--growUp-animation);
         background-color: $bgc-color;
 
         .todo_wrap {
+          height: 300px;
+          overflow-x: hidden;
+          overflow-y: scroll;
+          scroll-behavior: smooth;
+          &::-webkit-scrollbar {
+            display: none;
+          }
+
           .app_todo {
             background-color: transparent;
             height: 60px;
@@ -317,6 +414,7 @@ $growUp-animation: var(--growUp-animation);
     overflow: hidden;
     margin: 10px;
     color: $text-color;
+    height: 500px;
     .app_heading {
       color: #fff;
       font-weight: 700;
@@ -490,7 +588,7 @@ $growUp-animation: var(--growUp-animation);
     padding: 0;
   }
   .btn {
-    margin: 0;
+    margin: 0px;
     // padding: 0;
   }
 }

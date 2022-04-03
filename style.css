@@ -25,6 +25,7 @@
 html {
   font-family: "Josefin Sans", sans-serif;
   font-size: 62.5%;
+  scroll-behavior: smooth;
 }
 
 :root,
@@ -37,7 +38,7 @@ html {
   );
   --font-family: "josefin Sans", sans-serif;
   --font-size: 1.8rem;
-  --bgc-color: hsl(0, 0%, 100%);
+  --bgc-color: hsla(0, 0%, 89%, 0.767);
   --btn-color: rgb(92, 92, 92);
   --text-color: #000;
   --btn-active-color: rgb(216, 97, 0);
@@ -77,6 +78,89 @@ html {
   justify-content: space-between;
   align-items: center;
   height: 100vh;
+  position: relative;
+}
+.app .appContent .app_option {
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.app .appContent .app_option .btn_fullScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 4rem;
+  transition: linear 0.2s;
+  margin-left: 2.6rem;
+  cursor: pointer;
+}
+.app .appContent .app_option .btn_fullScreen:hover {
+  color: var(--text-color);
+  transform: scale(1.2);
+}
+.app .appContent .app_option .btn_wrap {
+  user-select: none;
+  position: relative;
+  cursor: pointer;
+}
+.app .appContent .app_option .btn_wrap:hover {
+  opacity: 0.8;
+}
+.app .appContent .app_option .btn_wrap .theme_btn {
+  display: none;
+}
+.app .appContent .app_option .btn_wrap .theme_btn:checked + .slider_round {
+  background-color: var(--bgc-color);
+}
+.app .appContent .app_option .btn_wrap .theme_btn:checked + .slider_round:before {
+  transform: translate(143%, -50%);
+  background-color: #fff;
+}
+.app .appContent .app_option .btn_wrap .slider_round {
+  box-shadow: 2px 2px 15px -3px #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  width: 75px;
+  height: 36px;
+  border-radius: 36px;
+  background: var(--bgc-color);
+  position: relative;
+  top: 0;
+  right: 0;
+  transition: linear 0.4s;
+}
+.app .appContent .app_option .btn_wrap .slider_round .slider-icon-left svg,
+.app .appContent .app_option .btn_wrap .slider_round .slider-icon-right svg {
+  height: 20px;
+}
+.app .appContent .app_option .btn_wrap .slider_round .slider-icon-left {
+  fill: #fff;
+  margin-left: 8px;
+}
+.app .appContent .app_option .btn_wrap .slider_round .slider-icon-right {
+  fill: #26679c;
+  margin-right: 6px;
+}
+.app .appContent .app_option .btn_wrap .slider_round:before {
+  content: "";
+  display: block;
+  height: 30px;
+  width: 30px;
+  border-radius: 30px;
+  position: absolute;
+  background-color: #26679c;
+  box-shadow: 2px 2px 15px -3px #000;
+  top: 50%;
+  transform: translate(8%, -50%);
+  transition: linear 0.2s;
+}
+.app .appContent .app_option .btn_wrap .slider_round:before.active {
+  background-color: #fff;
 }
 .app_banner {
   transition: linear 0.3s;
@@ -91,6 +175,7 @@ html {
 .app_body {
   width: 33.3%;
   margin: 0 auto;
+  height: 500px;
 }
 .app_body .app_header {
   display: flex;
@@ -164,7 +249,6 @@ html {
 .app_body .app_content {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
   border-radius: 1rem;
 }
 .app_body .app_content .app_input {
@@ -214,6 +298,15 @@ html {
   width: 100%;
   margin-top: 30px;
   background-color: var(--bgc-color);
+}
+.app_body .app_content .app_todos .todo_wrap {
+  height: 300px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+.app_body .app_content .app_todos .todo_wrap::-webkit-scrollbar {
+  display: none;
 }
 .app_body .app_content .app_todos .todo_wrap .app_todo {
   background-color: transparent;
@@ -312,6 +405,7 @@ html {
   overflow: hidden;
   margin: 10px;
   color: var(--text-color);
+  height: 500px;
 }
 .app_weather .app_heading {
   color: #fff;
@@ -484,7 +578,7 @@ html {
   }
 
   .btn {
-    margin: 0;
+    margin: 0px;
   }
 }
 

@@ -13,6 +13,7 @@ const listTodo = $(".todo_wrap");
 const jobCount = $(".job_count");
 const themeBtn = $(".theme_btn");
 const ListSort = $(".app_sort");
+const fullScreen = $(".btn_fullScreen");
 
 const ToDoApp = {
   sortMode: "all",
@@ -39,7 +40,11 @@ const ToDoApp = {
   inputValue: "",
   render() {
     const jobcout = this.sortedList.length;
-    jobCount.innerHTML = `${jobcout} item left`;
+    if (jobcout === 1) {
+      jobCount.innerHTML = `${jobcout} item`;
+    } else {
+      jobCount.innerHTML = `${jobcout} items`;
+    }
     const html = this.sortedList
       .map(
         (todo, i) => `<li data-index=${i} data-status=${
@@ -63,6 +68,10 @@ const ToDoApp = {
     return "render";
   },
   handleEvent() {
+    //click fullScreen Btn
+    fullScreen.addEventListener("click", (e) => {
+      this.handleFullScreen();
+    });
     //onclick list sort
     ListSort.addEventListener("click", (e) => {
       this.changeSortList(e);
@@ -111,6 +120,14 @@ const ToDoApp = {
       rootElement.classList.toggle("dark");
     });
   },
+  handleFullScreen() {
+    const documentEl = document.documentElement;
+    if (!document.fullscreenElement) {
+      documentEl.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  },
   changeSortList(e) {
     const targetEl = e.target.closest(".btn");
     if (targetEl) {
@@ -158,6 +175,7 @@ const ToDoApp = {
     this.getInputValue();
     this.displayAddBtn();
     todoInput.focus();
+    listTodo.lastChild.scrollIntoView();
   },
   deleteTodo(e) {
     const thisTodoIndex = e.target.closest(".app_todo").dataset.index;
